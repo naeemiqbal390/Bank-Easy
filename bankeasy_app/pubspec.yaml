@@ -1,0 +1,26 @@
+name: bankeasy
+description: Bank forms, HR/staff forms, and banking calculators — Pakistan-first.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.2.2   # local-only profile storage (never uploaded)
+  pdf: ^3.10.7                 # PDF document generation
+  printing: ^5.11.1            # print / save-as-PDF / share
+  intl: ^0.19.0                # date + number formatting
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+# NOTE: dependency versions above are correct as of this project's design date.
+# Run `flutter pub upgrade` after `flutter pub get` to pick up any newer
+# compatible releases before your first build.
