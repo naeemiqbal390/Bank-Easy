@@ -1,0 +1,39 @@
+name: Build Android APK & AAB
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Generate Android platform files
+        run: flutter create . --platforms=android --org com.bankeasy --project-name bankeasy
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build release APK (for sideloading/testing on your own phone)
+        run: flutter build apk --release
+
+      - name: Build release AAB (required format for Play Store upload)
+        run: flutter build appbundle --release
+
+      - name: Upload build outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: bankeasy-release-build
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
