@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: bankeasy_app
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
@@ -24,10 +27,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build release APK (for sideloading/testing on your own phone)
+      - name: Build release APK
         run: flutter build apk --release
 
-      - name: Build release AAB (required format for Play Store upload)
+      - name: Build release AAB
         run: flutter build appbundle --release
 
       - name: Upload build outputs
@@ -35,5 +38,5 @@ jobs:
         with:
           name: bankeasy-release-build
           path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/app/outputs/bundle/release/app-release.aab
+            bankeasy_app/build/app/outputs/flutter-apk/app-release.apk
+            bankeasy_app/build/app/outputs/bundle/release/app-release.aab
